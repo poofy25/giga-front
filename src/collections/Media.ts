@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
+import afterChangeHook from './hooks/afterChangeHook'
+
 export const Media: CollectionConfig = {
   slug: 'media',
   access: {
@@ -8,5 +10,8 @@ export const Media: CollectionConfig = {
   fields: [
 
   ],
+  hooks:{
+    afterChange: [afterChangeHook]
+  },
   upload: true,
 }

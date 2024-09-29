@@ -13,6 +13,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    candidates: Candidate;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -81,6 +82,43 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "candidates".
+ */
+export interface Candidate {
+  id: number;
+  cv?: (number | null) | Media;
+  name?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  age?: string | null;
+  work_experience?:
+    | {
+        work_role?: string | null;
+        work_period?: string | null;
+        work_responsabilites?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  education?:
+    | {
+        education_institution?: string | null;
+        education_period?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  languages?:
+    | {
+        language_name?: string | null;
+        language_level?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  skills?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -93,6 +131,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'candidates';
+        value: number | Candidate;
       } | null);
   globalSlug?: string | null;
   user: {

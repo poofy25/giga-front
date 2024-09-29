@@ -10,6 +10,7 @@ import { s3Storage } from '@payloadcms/storage-s3'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Candidates } from './collections/Candidates'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -21,7 +22,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Candidates],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -35,19 +36,19 @@ export default buildConfig({
   sharp,
   plugins: [
     // storage-adapter-placeholder
-    s3Storage({
-      collections: {
-        [Media.slug]: true,
-      },
-      bucket: process.env.S3_BUCKET || '',
-      config: {
-        credentials: {
-          accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
-          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
-        },
-        endpoint: process.env.R2_ENDPOINT || '',
-        region: process.env.R2_REGION || '',
-      },
-    }),
+    // s3Storage({
+    //   collections: {
+    //     [Media.slug]: true,
+    //   },
+    //   bucket: process.env.S3_BUCKET || '',
+    //   config: {
+    //     credentials: {
+    //       accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+    //       secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+    //     },
+    //     endpoint: process.env.R2_ENDPOINT || '',
+    //     region: process.env.R2_REGION || '',
+    //   },
+    // }),
   ],
 })
